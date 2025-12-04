@@ -22,23 +22,29 @@ style.configure("Sucesso.TLabel", foreground="green", background="white")
 # Criando um label
 ttk.Label(frm, text="Salvar usuário", style="BW.TLabel").grid(column=0, row=0)
 
-# Criando um input
+# Criando os inputs
+ttk.Label(frm, text="Email: ", style="BW.TLabel").grid(column=0, row=1)
 email = ttk.Entry(frm, width=30)
-email.grid(column=0, row=1)
+email.grid(column=1, row=1)
+
+ttk.Label(frm, text="Nome: ", style="BW.TLabel").grid(column=0, row=2)
+user = ttk.Entry(frm, width=30)
+user.grid(column=1, row=2)
 # Deixa ele selecionado quando inicia o programa
 email.focus()
 
 # Função para receber os dados
 def receberDados():
-    valor = email.get()
-    sql = f'INSERT INTO usuarios (email) VALUES ("{valor}")'
+    valor_email = email.get()
+    valor_user = user.get()
+    sql = f'INSERT INTO usuarios (email, user) VALUES ("{valor_email}", "{valor_user}")'
     cursor.execute(sql)
     conn.commit()
     #Mostrar mensagem de sucesso
-    ttk.Label(frm, text="Sucesso ao cadastrar usuário", style="Sucesso.TLabel").grid(column=0, row=3)
+    ttk.Label(frm, text="Sucesso ao cadastrar usuário", style="Sucesso.TLabel").grid(column=0, row=4)
 
 # Botão para iniciar a função
-ttk.Button(frm, text="Enviar",command=receberDados).grid(column=0, row=2)
+ttk.Button(frm, text="Enviar",command=receberDados).grid(column=0, row=3)
 
 def ao_fechar():
     db.fechar_conexao(conn, cursor)
